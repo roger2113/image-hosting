@@ -1,0 +1,53 @@
+
+# The Query type provides all entry points to the ImageHosting GraphQL schema
+type Query {
+  # Return all users
+  users: [User!]!
+
+  # Return all galleries
+  #galleries: [Gallery!]!
+
+  # Return all uploaded images
+  #images: [ImageElement!]!
+
+  # Return the User with the specified id
+  user(id: ID!): User!
+
+  # Return the Gallery with the specified id
+  #galleries(id: ID!): Gallery!
+
+  # Return the Image with the specified id
+  image(id: ID!): ImageElement!
+
+}
+
+# All the Mutations you can use to modify the ImageHosting data
+type Mutation {
+    createUser(login: String!, email: String!, password: String!): User
+    #createGallery(name: String!, user: User!): Gallery
+    #uploadImageElement(name: String!): ImageElement
+}
+
+
+type User {
+    id: ID!
+    firstName: String
+    lastName: String
+    login: String!
+    email: String!
+    password: String!
+    galleries: [Gallery]
+    images: [ImageElement]
+}
+
+type Gallery {
+    id: ID!
+    name: String!
+    user: User!
+}
+
+type ImageElement {
+    id: ID!
+    name: String!
+    user: User!
+}
