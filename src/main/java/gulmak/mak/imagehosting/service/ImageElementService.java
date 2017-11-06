@@ -3,6 +3,8 @@ package gulmak.mak.imagehosting.service;
 import gulmak.mak.imagehosting.domain.ImageElement;
 import gulmak.mak.imagehosting.repository.jpa.ImageElementRepositoryImpl;
 import gulmak.mak.imagehosting.util.Images;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class ImageElementService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ImageElementService.class);
 
     private ImageElementRepositoryImpl imageElementRepository;
     private UserService userService;

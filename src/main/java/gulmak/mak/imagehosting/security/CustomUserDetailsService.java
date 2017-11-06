@@ -3,7 +3,8 @@ package gulmak.mak.imagehosting.security;
 import gulmak.mak.imagehosting.domain.Role;
 import gulmak.mak.imagehosting.domain.User;
 import gulmak.mak.imagehosting.repository.UserRepository;
-import gulmak.mak.imagehosting.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service("customUserDetailsService")
+@Service
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     private UserRepository userRepository;
 
@@ -28,12 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        System.out.println("!!!!!!!!!!!!!!!!+++++++++++++++================");
+        logger.info(String.format("Authenticating user with login:%s", login));
         User user = userRepository.findByLogin(login);
         if(user == null){
+            logger.info(String.format("User with login %s hasn't been found", login));
             return new org.springframework.security.core.userdetails.User("",
                     "",
                     true,
@@ -43,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     getAuthoritiesForUknown());
         }
         else{
-            System.out.println("!!!!!!!!!!!!!!!!+++++++++++++++================");
+            logger.info(String.format("User with login %s has been found", login));
             return new org.springframework.security.core.userdetails.User(user.getLogin(),
                     user.getPassword(),
                     true,
@@ -56,7 +59,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> getGrantedAuthorities(Role role) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        System.out.println("!!!!!!!!!!!!!!!!+++++++++++++++================");
         authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
         return authorities;
     }

@@ -1,11 +1,11 @@
 package gulmak.mak.imagehosting.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,17 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
 
     @Autowired
-    //@Qualifier("customUserDetailsService")
     public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
@@ -37,12 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-            .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
                 .antMatchers("/user/**").authenticated()
-                .antMatchers("/users").hasAuthority("ADMIN");
+                .antMatchers("/users").hasRole("ADMIN")
+                .and()
+            .formLogin()
+                .permitAll()
+                .defaultSuccessUrl("/")
+                .and()
+             .rememberMe()
+                .key("imagehost-rem-me-key")
+                .rememberMeParameter("imagehost-rem-me-param")
+                .rememberMeCookieName("imagehost-rem-me")
+                .tokenValiditySeconds(60*60*24*7)
+                .and()
+            .csrf().disable();
     }
 
     @Bean

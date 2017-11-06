@@ -4,17 +4,15 @@ import gulmak.mak.imagehosting.domain.Role;
 import gulmak.mak.imagehosting.domain.User;
 import gulmak.mak.imagehosting.error.UserAlreadyExistsException;
 import gulmak.mak.imagehosting.repository.UserRepository;
-import gulmak.mak.imagehosting.repository.jpa.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
+
 
 @Service
 public class UserService {
