@@ -46,7 +46,7 @@ public class UserController {
         else return new ResponseEntity<>(HttpStatus.LOCKED);
     }
 
-    @PostMapping(value = "registration")
+    @PostMapping("registration")
     public ResponseEntity<Integer> createUser(@RequestBody User userInput){
         logger.info("Registering user: " + userInput);
         return new ResponseEntity<Integer>(userService.createUser(userInput), HttpStatus.CREATED);
