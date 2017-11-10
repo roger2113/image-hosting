@@ -10,10 +10,12 @@ services:
 
   db:
    image: roger2113/imagehosting:postgres
+   restart: always
+   volumes:
+    - ./data/postgres:/data/postgres
    ports:
     - "5432:5432"
-   volumes:
-    - ./database/postgres:/data/postgres
+
    environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: pg123
