@@ -18,4 +18,4 @@ services:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: pg123
     POSTGRES_DB: imagehosting
-    PGDATA : /data/postgres
+    PGDATA: /data/postgres
