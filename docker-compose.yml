@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+   image: roger2113/imagehosting:backend
+   ports:
+    - "8080:8080"
+   depends_on:
+    - db
+
+  db:
+   image: roger2113/imagehosting:postgres
+   ports:
+    - "5432:5432"
+   volumes:
+    - ./database/postgres:/data/postgres
+   environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: pg123
+    POSTGRES_DB: imagehosting
+    PGDATA : /data/postgres
