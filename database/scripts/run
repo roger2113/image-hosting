@@ -1,6 +1,0 @@
-#!/bin/bash
-set -e
-
-
-
-docker build -t ${DEV_IMAGE_NAME} -f Dockerfile .
