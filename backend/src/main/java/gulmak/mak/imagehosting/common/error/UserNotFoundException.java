@@ -1,6 +1,9 @@
-package gulmak.mak.imagehosting.error;
+package gulmak.mak.imagehosting.common.error;
 
 public class UserNotFoundException extends RuntimeException {
+
+    public UserNotFoundException() {
+    }
 
     public UserNotFoundException(String message) {
         super(message);

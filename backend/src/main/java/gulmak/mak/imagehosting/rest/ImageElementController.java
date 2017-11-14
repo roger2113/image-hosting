@@ -40,10 +40,9 @@ public class ImageElementController {
         return new ResponseEntity<>(imageElementService.findUserThumbnails(userId), HttpStatus.OK);
     }
 
-    @RequestMapping(
+    @PostMapping(
             value = "user/{userId}/upload_image",
-            consumes = "multipart/form-data",
-            method = RequestMethod.POST)
+            consumes = "multipart/form-data")
     public ResponseEntity createUser(@RequestParam("file") MultipartFile imageInput, @PathVariable int userId) {
         logger.info(String.format("User with id:%s wants to upload new image", userId));
         try {

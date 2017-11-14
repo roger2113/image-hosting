@@ -5,14 +5,15 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository {
 
-    User findById(int id) throws DataAccessException;
+    Optional<User> findById(int id) throws DataAccessException;
 
-    User findByLogin(String login) throws DataAccessException;
+    Optional<User> findByLogin(String login) throws DataAccessException;
 
-    User findByEmail(String email) throws DataAccessException;
+    Optional<User> findByEmail(String email) throws DataAccessException;
 
     Integer save(User user) throws DataAccessException;
 

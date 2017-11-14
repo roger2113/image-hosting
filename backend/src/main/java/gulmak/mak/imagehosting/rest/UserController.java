@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +37,7 @@ public class UserController {
 
     @GetMapping("user/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id, Principal principal){
-        logger.info(String.format("user with id:%s", id));
+        logger.info(String.format("Fetching user with id:%s", id));
         User user = userService.findUser(id);
         if (user.getLogin().equals(principal.getName())){
             return new ResponseEntity<>(userService.findUser(id), HttpStatus.OK);
@@ -48,7 +47,6 @@ public class UserController {
 
     @PostMapping("registration")
     public ResponseEntity<Integer> createUser(@RequestBody User userInput){
-        logger.info("Registering user: " + userInput);
         return new ResponseEntity<Integer>(userService.createUser(userInput), HttpStatus.CREATED);
     }
 

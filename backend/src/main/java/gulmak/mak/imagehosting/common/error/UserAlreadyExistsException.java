@@ -1,4 +1,4 @@
-package gulmak.mak.imagehosting.error;
+package gulmak.mak.imagehosting.common.error;
 
 public class UserAlreadyExistsException extends RuntimeException {
 

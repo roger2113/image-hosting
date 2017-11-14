@@ -2,7 +2,8 @@ package gulmak.mak.imagehosting.service;
 
 import gulmak.mak.imagehosting.domain.Role;
 import gulmak.mak.imagehosting.domain.User;
-import gulmak.mak.imagehosting.error.UserAlreadyExistsException;
+import gulmak.mak.imagehosting.common.error.UserAlreadyExistsException;
+import gulmak.mak.imagehosting.common.error.UserNotFoundException;
 import gulmak.mak.imagehosting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +28,7 @@ public class UserService {
     }
 
     public User findUser(int id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).orElseThrow(() ->new UserNotFoundException());
     }
 
     public List<User> findAll(){
@@ -35,7 +36,7 @@ public class UserService {
     }
 
     public User findUserByLogin(String login){
-        return userRepository.findByLogin(login);
+        return userRepository.findByLogin(login).orElseThrow(() ->new UserNotFoundException());
     }
 
     @Transactional

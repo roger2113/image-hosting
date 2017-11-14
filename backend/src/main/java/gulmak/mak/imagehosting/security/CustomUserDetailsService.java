@@ -1,5 +1,6 @@
 package gulmak.mak.imagehosting.security;
 
+import gulmak.mak.imagehosting.common.error.UserNotFoundException;
 import gulmak.mak.imagehosting.domain.Role;
 import gulmak.mak.imagehosting.domain.User;
 import gulmak.mak.imagehosting.repository.UserRepository;
@@ -34,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         logger.info(String.format("Authenticating user with login:%s", login));
-        User user = userRepository.findByLogin(login);
+        User user = userRepository.findByLogin(login).orElseThrow(() -> new UserNotFoundException());
         if(user == null){
             logger.info(String.format("User with login %s hasn't been found", login));
             return new org.springframework.security.core.userdetails.User("",
