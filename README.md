@@ -9,3 +9,5 @@ This step
 docker-compose up
 ```
 will build and run containers with images built from directories in project root.
+
+After that web-api can be available on localhost:8080
