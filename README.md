@@ -1,5 +1,5 @@
 # image-hosting
-Spring-boot (web, security, jpa), alternative graphQL web-api, Docker
+Application for image hosting. Developed with Spring-boot (web, security, jpa), alternative graphQL web-api, Docker. PostgreSQL database as storage will be also deployed in different container with docker compose tool.
 
 ### Installing
 
